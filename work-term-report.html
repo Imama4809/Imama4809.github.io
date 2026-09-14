@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Co-op Work Term Report — Ranking &amp; Unranking PCR3</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;0,8..60,600;1,8..60,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #F7F5EF;
+    --ink: #1C1B19;
+    --ink-soft: #55524A;
+    --indigo: #2E3A5E;
+    --rust: #B5541F;
+    --rule: #D8D4C8;
+  }
+
+  * { box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: "Source Serif 4", Georgia, serif;
+    font-size: 18px;
+    line-height: 1.6;
+  }
+
+  .measure {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 0 28px;
+  }
+
+  header.hero {
+    padding: 88px 0 56px;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .kicker {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 13px;
+    color: var(--ink-soft);
+    letter-spacing: 0.02em;
+    margin-bottom: 22px;
+  }
+
+  .sequence {
+    font-family: "JetBrains Mono", monospace;
+    font-weight: 500;
+    font-size: clamp(26px, 5.4vw, 42px);
+    letter-spacing: 0.06em;
+    color: var(--indigo);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2px 0;
+    margin: 0 0 28px;
+  }
+
+  .sequence span {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(6px) rotate(-6deg);
+    animation: settle 0.5s cubic-bezier(.2,.7,.3,1) forwards;
+  }
+
+  .sequence span.mark { color: var(--rust); }
+
+  @keyframes settle {
+    to { opacity: 1; transform: translateY(0) rotate(0deg); }
+  }
+
+  h1 {
+    font-size: clamp(28px, 4.4vw, 36px);
+    font-weight: 600;
+    line-height: 1.25;
+    margin: 0 0 14px;
+    max-width: 22ch;
+  }
+
+  .hero p.sub {
+    color: var(--ink-soft);
+    font-size: 17px;
+    margin: 0;
+    max-width: 52ch;
+  }
+
+  main { padding: 8px 0 90px; }
+
+  section {
+    padding: 54px 0;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  section:last-of-type { border-bottom: none; }
+
+  .section-label {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 13px;
+    color: var(--rust);
+    margin: 0 0 10px;
+  }
+
+  h2 {
+    font-size: 24px;
+    font-weight: 600;
+    margin: 0 0 18px;
+  }
+
+  p { margin: 0 0 16px; }
+  p:last-child { margin-bottom: 0; }
+
+  .facts {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    gap: 10px 20px;
+    font-size: 16px;
+    margin-top: 22px;
+  }
+
+  .facts dt {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 13px;
+    color: var(--ink-soft);
+    align-self: start;
+    padding-top: 3px;
+  }
+
+  .facts dd { margin: 0; }
+
+  .goal {
+    border-left: 2px solid var(--rule);
+    padding-left: 22px;
+    margin-bottom: 40px;
+    position: relative;
+  }
+  .goal:last-child { margin-bottom: 0; }
+
+  .goal-num {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 13px;
+    color: var(--indigo);
+    position: absolute;
+    left: -1px;
+    top: 0;
+    background: var(--paper);
+    padding-right: 10px;
+    transform: translateX(-50%);
+  }
+
+  .goal h3 {
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0 0 4px;
+  }
+
+  .goal .domain {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 12px;
+    color: var(--ink-soft);
+    margin: 0 0 14px;
+  }
+
+  .goal p { margin: 0; }
+
+  .stack {
+    display: flex;
+    gap: 18px;
+    flex-wrap: wrap;
+    margin-top: 20px;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 14px;
+  }
+
+  .stack span {
+    border: 1px solid var(--rule);
+    padding: 5px 11px;
+    color: var(--ink-soft);
+  }
+
+  footer {
+    padding: 40px 0 70px;
+  }
+
+  footer .section-label { color: var(--ink-soft); }
+
+  footer p { color: var(--ink-soft); font-size: 16px; }
+
+  @media (max-width: 480px) {
+    body { font-size: 17px; }
+    header.hero { padding: 60px 0 40px; }
+    .facts { grid-template-columns: 1fr; gap: 4px 0; }
+    .facts dt { padding-top: 10px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .sequence span { animation: none; opacity: 1; transform: none; }
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="measure">
+    <div class="kicker">Co-op Work Term Report</div>
+    <div class="sequence" id="pcr3-strip" aria-hidden="true"></div>
+    <h1>Ranking and unranking PCR3, the Granny de Bruijn sequence</h1>
+    <p class="sub">A term spent under the supervision of Professor Joseph Sawada, working through an open problem in combinatorial generation to its complete proof.</p>
+  </div>
+</header>
+
+<main>
+
+  <section>
+    <div class="measure">
+      <p class="section-label">01 — Introduction</p>
+      <h2>What this report covers</h2>
+      <p>This term I worked with Professor Joseph Sawada on an open problem concerning PCR3, the Granny de Bruijn sequence: finding efficient algorithms to rank and unrank it. By the end of the term I had a technique, the lemmas needed to support it, an implementation, and a complete proof that the algorithm is correct.</p>
+      <div class="facts">
+        <dt>Supervisor</dt><dd>Professor Joseph Sawada</dd>
+        <dt>Institution</dt><dd>University of Guelph, School of Computer Science</dd>
+        <dt>Focus</dt><dd>Combinatorial generation — ranking and unranking algorithms</dd>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="measure">
+      <p class="section-label">02 — The employer</p>
+      <h2>Working in an academic research group</h2>
+      <p>Rather than an industry placement, this term was spent as a research assistant in Professor Sawada's group at the University of Guelph. The group works on combinatorial generation — the design and analysis of algorithms that list, rank, and unrank complex combinatorial objects such as de Bruijn sequences, Gray codes, and related structures. It's a small, close-supervision environment: most of the term was spent working directly with my supervisor on a single open problem, rather than moving between separate assigned tasks.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="measure">
+      <p class="section-label">03 — Job description</p>
+      <h2>The problem, and what I did with it</h2>
+      <p>The task was to find ranking and unranking algorithms for PCR3, the Granny de Bruijn sequence — an open problem going into the term. I was responsible for the full arc of the work: developing the technique, identifying and proving the lemmas it depended on, implementing it in code, and verifying the implementation against the theory.</p>
+      <p>By the end of the term, the algorithm was complete and fully proven, and I was writing it up as a paper. That combination — a working proof and a working implementation that agree with each other — is what made the result solid rather than a partial idea.</p>
+      <div class="stack">
+        <span>C — implementation</span>
+        <span>CTest — verification</span>
+        <span>LaTeX — the paper</span>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="measure">
+      <p class="section-label">04 — Goals</p>
+      <h2>Learning goals for the term</h2>
+
+      <div class="goal">
+        <span class="goal-num">1</span>
+        <h3>Solving an open problem</h3>
+        <p class="domain">Critical &amp; creative thinking — problem solving</p>
+        <p>Coming into the term, I wanted to make real progress on an unsolved problem rather than just apply known methods to known ones. My plan was to work through the relevant literature and see which techniques I already knew could be adapted to it, treating success as reaching a solution with code that actually verified it, not just a promising idea. That's how it played out: I found a solution and backed it up with working verification, which told me the approach held up under scrutiny and not just on paper.</p>
+      </div>
+
+      <div class="goal">
+        <span class="goal-num">2</span>
+        <h3>Writing a cohesive paper</h3>
+        <p class="domain">Communicating — written communication</p>
+        <p>I set the bar high for myself here: write a paper cohesive enough that my supervisor would consider it ready to submit to a journal. The plan was straightforward — write, get feedback, revise, repeat — but the actual writing turned out to be a much bigger gap between my technical understanding and my ability to explain it clearly than I'd expected. It's the one goal where the result fell short of what I set out to do, and honestly the more useful lesson of the two: proving something and communicating it well are different skills.</p>
+      </div>
+
+      <div class="goal">
+        <span class="goal-num">3</span>
+        <h3>Reading research papers effectively</h3>
+        <p class="domain">Communicating — reading comprehension</p>
+        <p>Reading combinatorics papers at the start of the term was slow going, so the goal was simply to get faster and more comfortable at it, mainly by reading everything connected to the problem I was working on and measuring my own progress against where I started. The improvement was real if modest — a recent case where I got through part of a paper on a topic I had almost no background in is the clearest sign it worked, even if I wouldn't call myself fluent yet.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="measure">
+      <p class="section-label">05 — Conclusion</p>
+      <h2>Where things landed</h2>
+      <p>Going in, ranking and unranking PCR3 was an open problem. By the end of the term, I'd built and fully proven an algorithm that does both, backed by an implementation that checks out against the proof. The paper is still being finished, but the mathematical result itself is complete. If I had to point to one thing from this term, it's that: taking a problem from open to proven, start to finish.</p>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="measure">
+    <p class="section-label">Acknowledgments</p>
+    <p>Thanks to Professor Joseph Sawada for the supervision and guidance throughout this project.</p>
+  </div>
+</footer>
+
+<script>
+  const seq = "0001011101100100010111011001".split("");
+  const strip = document.getElementById('pcr3-strip');
+  seq.forEach((ch, i) => {
+    const s = document.createElement('span');
+    s.textContent = ch;
+    if (ch === '1') s.classList.add('mark');
+    s.style.animationDelay = (i * 22) + 'ms';
+    strip.appendChild(s);
+  });
+</script>
+
+</body>
+</html>
